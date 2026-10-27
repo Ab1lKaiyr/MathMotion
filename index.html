@@ -261,10 +261,10 @@ footer{color:var(--muted);font-size:14px;margin-top:28px}
         <p class="hint" id="copyMsg" role="status" aria-live="polite"></p>
         <div id="marked" class="marked" hidden></div>
       </section>
-      <section class="panel" aria-labelledby="outHead">
-        <h2 id="outHead">Шешуі</h2>
-        <div id="out"></div>
-      </section>
+      <!-- <section class="panel" aria-labelledby="outHead"> -->
+        <!-- <h2 id="outHead">Шешуі</h2> -->
+        <!-- <div id="out"></div> -->
+      <!-- </section> -->
     </div>
   </div>
   </main>
@@ -1280,10 +1280,10 @@ function solveMoveCore(M, R){
   if(ans && ans.unit === bt && ans.q && bt === "с" && ans.q.cmp(60) >= 0) S.push(fq(ans.q) + " с = " + fdur(ans.q, "с"));
   if(ans && ans.unit === bt && ans.q && bt === "мин" && ans.q.cmp(60) >= 0) S.push(fq(ans.q) + " мин = " + fdur(ans.q, "мин"));
   if(ans && ans.unit === bl && ans.q && bl === "м" && ans.q.cmp(1000) >= 0) R.notes.push(fq(ans.q) + " м = " + fq(ans.q.div(1000)) + " км.");
-  sim.final.ans = "Жауабы: " + ans.main;
-  sim.clockIsAnswer = (ask === "meet" || ask === "time_gap") && !M.delay && !M.askClock;
-  if(sim.final.gapAns) sim.final.gapText = ans.main;
-  R.answer = ans; R.sim = sim;
+  // sim.final.ans = "Жауабы: " + ans.main;
+  // sim.clockIsAnswer = (ask === "meet" || ask === "time_gap") && !M.delay && !M.askClock;
+  // if(sim.final.gapAns) sim.final.gapText = ans.main;
+  // R.answer = ans; R.sim = sim;
 }
 
 function clockStr(q){
@@ -1319,11 +1319,11 @@ function solveSingle(M, R, c){
   if(ans.unit === bt && bt === "с" && ans.q.cmp(60) >= 0) S.push(fq(ans.q) + " с = " + fdur(ans.q, "с"));
   if(ans.unit === bt && bt === "мин" && ans.q.cmp(60) >= 0) S.push(fq(ans.q) + " мин = " + fdur(ans.q, "мин"));
   sim.single = true; sim.x0 = [0, 0]; sim.dir = [1, 1]; sim.v = [v[0] ? v[0].v : 0, 0];
-  sim.final.ans = "Жауабы: " + ans.main;
-  sim.clockIsAnswer = ask === "meet";
-  if(sim.final.gapAns) sim.final.gapText = ans.main;
-  if(!sim.tEndQ && t) sim.tEndQ = t;
-  R.answer = ans; R.sim = sim;
+  // sim.final.ans = "Жауабы: " + ans.main;
+  // sim.clockIsAnswer = ask === "meet";
+  // if(sim.final.gapAns) sim.final.gapText = ans.main;
+  // if(!sim.tEndQ && t) sim.tEndQ = t;
+  // R.answer = ans; R.sim = sim;
 }
 
 // Мәтін қай бөлімге жатады: қате бөлімде жазылса, дұрысын ұсынамыз
@@ -1682,8 +1682,8 @@ function solveWorkCore(W, R){
     if(liters && p.f){ const L = p.f.mul(TQ); sp.finalShare = (p.sign < 0 ? "ағызғаны: " : "құйғаны: ") + fq(L) + " " + vu; }
     else if(p.r){ const x = p.r.mul(TQ); sp.finalShare = drain ? (p.sign < 0 ? "ағызғаны: " : "құйғаны: ") + fq(x) + " " + W.target : "үлесі: " + fx(x) + " (" + Math.round(x.v * 100) + "%)"; }
   });
-  sim.final.ans = "Жауабы: " + ans.main;
-  R.answer = ans; R.sim = sim;
+  // sim.final.ans = "Жауабы: " + ans.main;
+  // R.answer = ans; R.sim = sim;
 }
 
 // 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2
@@ -1964,7 +1964,8 @@ function solveRiverCore(R, out){
   const tEnd = simLegs.reduce((a, l) => a + l.t, 0);
   const tEndQ = demo ? new Q(simLegs.length) : legs.filter(l => l.D && l.t && K[vk(l.dir)]).reduce((a, l) => a.add(l.t), new Q(0));
   out.sim = { kind:"river", noun:R.noun, raft:R.raft, u, lu, tu, own:K.own ? K.own.v : null, cur:K.cur ? K.cur.v : null,
-              legs:simLegs, tEnd, tEndQ, demo, askLeg:ask.leg != null ? ask.leg : null, final:{ ans:"Жауабы: " + ans.main },
+              legs:simLegs, tEnd, tEndQ, demo, askLeg:ask.leg != null ? ask.leg : null, 
+             // final:{ ans:"Жауабы: " + ans.main },
               clockIsAnswer:ask.k === "time" && (ask.leg == null || simLegs.length === 1) };
   if(demo) out.notes.push("Анимацияда кеме " + simLegs.map(l => "1 " + TLOC[TWORD[tu]] + " " + DW(l.dir) + " " + fq(Q.of(Math.round(l.D * 1000)).div(1000)) + " " + lu).join(", сосын ") + " жүзеді — бұл оның жылдамдығы.");
   out.answer = ans;
@@ -2612,7 +2613,7 @@ function render(ctx){
   } else if(res && res.err){
     h += '<div class="msg err"><p>' + esc(res.err) + "</p>" + suggestHtml() + "</div>";
   } else if(res){
-    h += '<div class="answer"><div class="lbl">Жауабы</div><div class="val">' + fracHtml(res.answer.main) + '</div><p class="sent">' + fracHtml(res.answer.sentence) + "</p></div>";
+    h += '<div class="answer"><div class="lbl"> </div><div class="val">' + fracHtml(res.answer.main) + '</div><p class="sent">' + fracHtml(res.answer.sentence) + "</p></div>";
     if(warns.length) h += '<div class="msg warn"><ul>' + warns.map(i => "<li>" + esc(i.t) + "</li>").join("") + "</ul></div>";
     h += '<ol class="steps">' + res.steps.map(s => "<li>" + fracHtml(s) + "</li>").join("") + "</ol>";
     if(res.notes.length) h += '<ul class="notes">' + res.notes.map(s => "<li>" + fracHtml(s) + "</li>").join("") + "</ul>";
@@ -2637,19 +2638,19 @@ function applyResult(model, res, P, manual){
   ST.model = model; ST.res = res; ST.P = P || ST.P;
   const blocked = !manual && P && P.issues.some(i => i.lv === "block") ? P.issues.filter(i => i.lv === "block") : null;
   pause();
-  if(blocked || !res || res.err){
-    ST.sim = null; buildScene();
-    showStage(false, blocked ? "Шарт толық түсінілмеді — «Шешуі» бөлігінде не жетпейтіні жазылған. Мәндерді тексеріп, «Осы мәндермен шешу» батырмасын басыңыз." : "Есепті шешу мүмкін болмады — себебі «Шешуі» бөлігінде жазылған.");
-    render({ P, model, res, blocked, manual });
-    announce(blocked ? "Шарт толық түсінілмеді." : "Шешу мүмкін болмады: " + (res ? res.err : ""));
-    $("sceneDesc").textContent = "";
-    return;
+  // if(blocked || !res || res.err){
+  //   ST.sim = null; buildScene();
+  //   showStage(false, blocked ? "Шарт толық түсінілмеді — «Шешуі» бөлігінде не жетпейтіні жазылған. Мәндерді тексеріп, «Осы мәндермен шешу» батырмасын басыңыз." : "Есепті шешу мүмкін болмады — себебі «Шешуі» бөлігінде жазылған.");
+  //   render({ P, model, res, blocked, manual });
+  //   announce(blocked ? "Шарт толық түсінілмеді." : "Шешу мүмкін болмады: " + (res ? res.err : ""));
+  //   $("sceneDesc").textContent = "";
+  //   return;
   }
   ST.sim = res.sim; showStage(true);
   buildScene(0);
   render({ P, model, res, blocked:null, manual });
   $("sceneDesc").textContent = res.answer.sentence;
-  announce("Жауабы: " + res.answer.main + ". " + res.answer.sentence);
+  // announce("Жауабы: " + res.answer.main + ". " + res.answer.sentence);
   if(reduceMotion()) setT(ST.sim.tEnd); else play();
 }
 function announce(s){ const l = $("live"); l.textContent = ""; setTimeout(() => { l.textContent = s; }, 30); }
